@@ -19,6 +19,9 @@ include('../partials/header.php')
 
     <section class="dashboard">
         <div class="container dashboard__container">
+            <button id="show__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-left-b"></i></button>
+            <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-right-b"></i></button>
+
             <aside>
                 <ul>
                     <li>
@@ -40,7 +43,7 @@ include('../partials/header.php')
                         </a>
                     </li>
                     <li>
-                        <a href="manage-user.php">
+                        <a href="manage-users.php">
                             <i class="uil uil-user"></i>
                             <h5>Manage User</h5>
                         </a>
@@ -52,7 +55,7 @@ include('../partials/header.php')
                         </a>
                     </li>
                     <li>
-                        <a href="manage-categories.php">
+                        <a href="manage-categories.php" class="active">
                             <i class="uil uil-pen"></i>
                             <h5>Manage Category</h5>
                         </a>
@@ -77,13 +80,13 @@ include('../partials/header.php')
 
                         </tr>
                         <tr>
-                            <td>Travel</td>
+                            <td>Wild Life</td>
                             <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
                             <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
 
                         </tr>
                         <tr>
-                            <td>Travel</td>
+                            <td>Scifi</td>
                             <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
                             <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
 
