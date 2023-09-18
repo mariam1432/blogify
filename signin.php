@@ -1,5 +1,9 @@
 <?php
-include('partials/header.php')
+
+require('config/constants.php');
+$username_email = $_SESSION['signin-data']['username_email'] ?? null;
+$password = $_SESSION['signin-data']['password'] ?? null;
+unset($_SESSION['signin-data']);
 
 ?>
 <!DOCTYPE html>
@@ -20,17 +24,28 @@ include('partials/header.php')
     <section class="form__section">
         <div class="container form__section-container">
             <h2>signin</h2>
-            <div class="alert__message success">
+            <?php if (isset($_SESSION['signup-success'])) : ?>
+                <div class="alert__message success">
 
-                <p>This is an error</p>
-            </div>
-            <form action="" method="post">
+                    <p><?= $_SESSION['signup-success'];
+                        unset($_SESSION['signup-success']);
+                        ?></p>
+                </div>
+            <?php elseif (isset($_SESSION['signin'])) : ?>
+                <div class="alert__message error">
+
+                    <p><?= $_SESSION['signin'];
+                        unset($_SESSION['signin']);
+                        ?></p>
+                </div>
+            <?php endif; ?>
+            <form action="<?= ROOT_URL ?>signin-logic.php" method="post">
 
 
-                <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="password">
+                <input type="text" name="username_email" name="email" value="<?= $username_email ?>" placeholder="Enter Email or Username">
+                <input type="password" name="password" name="email" value="<?= $password ?>" placeholder="password">
 
-                <button type="submit" class="btn">Signup</button>
+                <button type="submit" name="submit" class="btn">Signup</button>
                 <small>Don't have an account yet?<a href="signup.php">Sign up</a></small>
             </form>
 
@@ -41,6 +56,3 @@ include('partials/header.php')
 </body>
 
 </html>
-<?php
-include('partials/footer.php');
-?>
