@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
                     $_SESSION['user_is_admin'] = true;
                 }
 
-                header('location: ' . ROOT_URL . 'admins/');
+                header('location: ' . ROOT_URL . 'admins/dashboard.php');
                 exit(); // Exit to prevent further execution
             } else {
                 $_SESSION['signin'] = 'Please enter correct information.';
