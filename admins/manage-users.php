@@ -1,9 +1,48 @@
 <?php
-include('./partials/header.php')
-
+include('./partials/header.php');
+//fetching users from db but not current
+$current_admin_id = $_SESSION['user-id'];
+$query = "SELECT * FROM users WHERE NOT id=$current_admin_id";
+$users = mysqli_query($connection, $query);
 ?>
 
 <section class="dashboard">
+    <?php if (isset($_SESSION['add-user-success'])) : ?>
+        <div class="alert__message success container">
+
+            <p><?= $_SESSION['add-user-success'];
+                unset($_SESSION['add-user-success']);
+                ?></p>
+        </div>
+    <?php elseif (isset($_SESSION['edit-user-success'])) : ?>
+        <div class="alert__message success container">
+
+            <p><?= $_SESSION['edit-user-success'];
+                unset($_SESSION['edit-user-success']);
+                ?></p>
+        </div>
+    <?php elseif (isset($_SESSION['edit-user'])) : ?>
+        <div class="alert__message error container">
+
+            <p><?= $_SESSION['edit-user'];
+                unset($_SESSION['edit-user']);
+                ?></p>
+        </div>
+        <?php elseif (isset($_SESSION['delete-user-success'])) : ?>
+        <div class="alert__message success container">
+
+            <p><?= $_SESSION['delete-user-success'];
+                unset($_SESSION['delete-user-success']);
+                ?></p>
+        </div>
+    <?php elseif (isset($_SESSION['delete-user'])) : ?>
+        <div class="alert__message error container">
+
+            <p><?= $_SESSION['delete-user'];
+                unset($_SESSION['delete-user']);
+                ?></p>
+        </div>
+    <?php endif; ?>
     <div class="container dashboard__container">
         <button id="show__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-left-b"></i></button>
         <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-right-b"></i></button>
@@ -22,30 +61,33 @@ include('./partials/header.php')
                         <h5>Manage Post</h5>
                     </a>
                 </li>
-                <li>
-                    <a href="add-user.php">
-                        <i class="uil uil-user-plus"></i>
-                        <h5>Add User</h5>
-                    </a>
-                </li>
-                <li>
-                    <a href="manage-users.php" class="active">
-                        <i class="uil uil-user"></i>
-                        <h5>Manage User</h5>
-                    </a>
-                </li>
-                <li>
-                    <a href="add-category.php">
-                        <i class="uil uil-edit"></i>
-                        <h5>Add Category</h5>
-                    </a>
-                </li>
-                <li>
-                    <a href="manage-categories.php">
-                        <i class="uil uil-pen"></i>
-                        <h5>Manage Category</h5>
-                    </a>
-                </li>
+                <?php if (isset($_SESSION['user_is_admin'])) : ?>
+
+                    <li>
+                        <a href="add-user.php">
+                            <i class="uil uil-user-plus"></i>
+                            <h5>Add User</h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="manage-users.php" class="active">
+                            <i class="uil uil-user"></i>
+                            <h5>Manage User</h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="add-category.php">
+                            <i class="uil uil-edit"></i>
+                            <h5>Add Category</h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="manage-categories.php">
+                            <i class="uil uil-pen"></i>
+                            <h5>Manage Category</h5>
+                        </a>
+                    </li>
+                <?php endif ?>
             </ul>
         </aside>
         <main>
@@ -61,30 +103,15 @@ include('./partials/header.php')
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Emma</td>
-                        <td>emma@yopmail.com</td>
-                        <td> <a href="edit-user.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-user.php" class="btn sm danger">Delete</a></td>
-                        <td>yes</td>
-                    </tr>
-                    <tr>
-                        <td>Simon</td>
-                        <td>simon@yopmail.com</td>
-                        <td> <a href="edit-user.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-user.php" class="btn sm danger">Delete</a></td>
-                        <td>no</td>
-
-
-                    </tr>
-                    <tr>
-                        <td>jacob</td>
-                        <td>jacob@yopmail.com</td>
-                        <td> <a href="edit-user.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-user.php" class="btn sm danger">Delete</a></td>
-                        <td>yes</td>
-
-                    </tr>
+                    <?php while ($user = mysqli_fetch_assoc($users)) : ?>
+                        <tr>
+                            <td><?= "{$user['firstname']} {$user['lastname']}" ?></td>
+                            <td><?= $user['email'] ?></td>
+                            <td> <a href="<?= ROOT_URL ?>admins/edit-user.php?id=<?= $user['id'] ?>" class="btn sm">Edit</a></td>
+                            <td> <a href="<?= ROOT_URL ?>admins/delete-user.php?id=<?= $user['id'] ?>" class="btn sm danger">Delete</a></td>
+                            <td><?= $user['is_admin'] ? 'Yes' : 'No' ?></td>
+                        </tr>
+                    <?php endwhile ?>
                 </tbody>
             </table>
         </main>

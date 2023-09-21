@@ -1,5 +1,6 @@
 <?php
-include('./partials/header.php');
+include('./partials/header.php')
+
 ?>
 
 <section class="dashboard">
@@ -18,7 +19,7 @@ include('./partials/header.php');
                 <li>
                     <a href="dashboard.php">
                         <i class="uil uil-postcard"></i>
-                        <h5>Manage Posts</h5>
+                        <h5>Manage Post</h5>
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user_is_admin'])) : ?>
@@ -30,7 +31,7 @@ include('./partials/header.php');
                         </a>
                     </li>
                     <li>
-                        <a href="manage-users.php">
+                        <a href="manage-users.php" class="active">
                             <i class="uil uil-user"></i>
                             <h5>Manage User</h5>
                         </a>
@@ -42,7 +43,7 @@ include('./partials/header.php');
                         </a>
                     </li>
                     <li>
-                        <a href="manage-categories.php" class="active">
+                        <a href="manage-categories.php">
                             <i class="uil uil-pen"></i>
                             <h5>Manage Category</h5>
                         </a>
@@ -51,32 +52,40 @@ include('./partials/header.php');
             </ul>
         </aside>
         <main>
-            <h2>Manage Categories</h2>
+            <h2>Manage Users</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Title</th>
+                        <th>Name</th>
+                        <th>Username</th>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <th>Admin</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Travel</td>
-                        <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
+                        <td>Emma</td>
+                        <td>emma@yopmail.com</td>
+                        <td> <a href="edit-user.php" class="btn sm">Edit</a></td>
+                        <td> <a href="delete-user.php" class="btn sm danger">Delete</a></td>
+                        <td>yes</td>
+                    </tr>
+                    <tr>
+                        <td>Simon</td>
+                        <td>simon@yopmail.com</td>
+                        <td> <a href="edit-user.php" class="btn sm">Edit</a></td>
+                        <td> <a href="delete-user.php" class="btn sm danger">Delete</a></td>
+                        <td>no</td>
+
 
                     </tr>
                     <tr>
-                        <td>Wild Life</td>
-                        <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
-
-                    </tr>
-                    <tr>
-                        <td>Scifi</td>
-                        <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
+                        <td>jacob</td>
+                        <td>jacob@yopmail.com</td>
+                        <td> <a href="edit-user.php" class="btn sm">Edit</a></td>
+                        <td> <a href="delete-user.php" class="btn sm danger">Delete</a></td>
+                        <td>yes</td>
 
                     </tr>
                 </tbody>
@@ -87,7 +96,7 @@ include('./partials/header.php');
     </div>
 </section>
 
-<script src="../js/main.js"></script>
+<script src="..\js\main.js"></script>
 </body>
 
 </html>
