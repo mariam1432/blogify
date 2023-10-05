@@ -1,8 +1,47 @@
 <?php
 include('./partials/header.php');
+
+$fetch = "SELECT * FROM categories ORDER BY title";
+$result = mysqli_query($connection, $fetch);
 ?>
 
 <section class="dashboard">
+    <?php if (isset($_SESSION['add-category-success'])) : ?>
+        <div class="alert__message success container">
+
+            <p><?= $_SESSION['add-category-success'];
+                unset($_SESSION['add-category-success']);
+                ?></p>
+        </div>
+    <?php elseif (isset($_SESSION['edit-category-success'])) : ?>
+        <div class="alert__message success container">
+
+            <p><?= $_SESSION['edit-category-success'];
+                unset($_SESSION['edit-category-success']);
+                ?></p>
+        </div>
+    <?php elseif (isset($_SESSION['edit-category'])) : ?>
+        <div class="alert__message error container">
+
+            <p><?= $_SESSION['edit-category'];
+                unset($_SESSION['edit-category']);
+                ?></p>
+        </div>
+    <?php elseif (isset($_SESSION['delete-category-success'])) : ?>
+        <div class="alert__message success container">
+
+            <p><?= $_SESSION['delete-category-success'];
+                unset($_SESSION['delete-category-success']);
+                ?></p>
+        </div>
+    <?php elseif (isset($_SESSION['delete-category'])) : ?>
+        <div class="alert__message error container">
+
+            <p><?= $_SESSION['delete-category'];
+                unset($_SESSION['delete-category']);
+                ?></p>
+        </div>
+    <?php endif; ?>
     <div class="container dashboard__container">
         <button id="show__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-left-b"></i></button>
         <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-right-b"></i></button>
@@ -52,35 +91,40 @@ include('./partials/header.php');
         </aside>
         <main>
             <h2>Manage Categories</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Travel</td>
-                        <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
+            <?php if (mysqli_num_rows($result) > 0) : ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($category = mysqli_fetch_assoc($result)) : ?>
+                            <tr>
+                                <td><?= $category['title'] ?></td>
 
-                    </tr>
-                    <tr>
-                        <td>Wild Life</td>
-                        <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
-
-                    </tr>
-                    <tr>
-                        <td>Scifi</td>
-                        <td> <a href="edit-category.php" class="btn sm">Edit</a></td>
-                        <td> <a href="delete-category.php" class="btn sm danger">Delete</a></td>
-
-                    </tr>
-                </tbody>
-            </table>
+                                <td>
+                                    <?php if ($category['id'] == 12 || $category['title'] == 'Uncategorized') : ?>
+                                        ---
+                                    <?php else : ?>
+                                        <a href="<?= ROOT_URL ?>admins/edit-category.php?id=<?= $category['id'] ?>" class="btn sm">Edit</a>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($category['id'] == 12 || $category['title'] == 'Uncategorized') : ?>
+                                        ---
+                                    <?php else : ?>
+                                        <a href="<?= ROOT_URL ?>admins/delete-category-logic.php?id=<?= $category['id'] ?>" class="btn sm danger">Delete</a> <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endwhile ?>
+                    </tbody>
+                </table>
+            <?php else : ?>
+                <div class="alert__message error"><?= "No categories found." ?></div>
+            <?php endif; ?>
         </main>
 
 

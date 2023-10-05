@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     $createpassword = filter_var($_POST['createpassword'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $confirmpassword = filter_var($_POST['confirmpassword'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $avatar = $_FILES['avatar'];
-    var_dump($avatar['name']);
+    // var_dump($avatar['name']);
     $is_admin = filter_var($_POST['userrole'], FILTER_VALIDATE_INT);
     //   validation
     if (!$firstname) {
