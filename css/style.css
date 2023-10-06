@@ -395,6 +395,8 @@ footer ul a:hover {
 }
 
 /* single post */
+
+
 .singlepost {
     margin: 6rem 0 2rem;
 }
@@ -463,9 +465,10 @@ footer ul a:hover {
     color: var(--color-green);
 }
 
-.alert__message.lg{
+.alert__message.lg {
     text-align: center;
 }
+
 form {
     display: flex;
     flex-direction: column;
@@ -757,6 +760,8 @@ select {
     .dashboard main table tr:nth-child(even) {
         background-color: var(--color-gray-900);
     }
+
+
 }
 
 /* media queries for small devices */
@@ -863,5 +868,7 @@ select {
     #hide__sidebar-btn {
         display: none;
     }
+
+
 
 }

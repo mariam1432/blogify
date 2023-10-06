@@ -12,7 +12,6 @@ if (isset($_POST['submit'])) {
     $thumbnail = $_FILES['thumbnail'];
 
     $is_featured = $is_featured == 1 ? 1 : 0; // Improved ternary expression
-
     if (!$title || !$body || !$category_id || !$thumbnail['name']) {
         $_SESSION['add-post'] = 'Please fill out all fields.';
     } else {
