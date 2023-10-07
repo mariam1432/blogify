@@ -1,5 +1,5 @@
 <footer class="footer">
-    <div class="footer__socials">
+    <!-- <div class="footer__socials">
         <a href="https://youtube" target="_blank">
             <i class="uil uil-youtube"></i>
         </a>
@@ -11,7 +11,7 @@
         <a href="https://instagram" target="_blank">
             <i class="uil uil-instagram"></i>
         </a>
-    </div>
+    </div> -->
     <div class="container footer__container">
         <article>
             <h4>Categories</h4>

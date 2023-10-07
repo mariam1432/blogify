@@ -71,7 +71,7 @@ $posts = mysqli_query($connection, $posts_query);
                     $res = mysqli_query($connection, $category_query);
                     $post_category = mysqli_fetch_assoc($res);
                     ?>
-                    <a href="<?= ROOT_URL ?>category-post.php?id=<?= $post_category['id'] ?>" class="category__button"><?= $post_category['title'] ?></a>
+                    <a href="<?= ROOT_URL ?>category-posts.php?id=<?= $post_category['id'] ?>" class="category__button"><?= $post_category['title'] ?></a>
                     <h3 class="post__title">
                         <a href="<?= ROOT_URL ?>post.php?id=<?= $post['id'] ?>"><?= $post['title'] ?></a>
 

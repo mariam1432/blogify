@@ -1,112 +1,72 @@
 <?php
-include('partials/header.php')
+include('partials/header.php');
 
+$posts_query  = "SELECT 
+posts.*,
+users.firstname,
+users.lastname,
+users.avatar,
+categories.title AS category_title
+FROM posts
+JOIN users ON users.id=posts.author_id
+JOIN categories ON categories.id=posts.category_id
+ORDER BY date_time DESC";
+$posts = mysqli_query($connection, $posts_query);
 ?>
 
 <section class="search__bar">
-    <form action="post" class="container search__bar-container">
+    <form action="<?= ROOT_URL ?>search.php" method="GET" class="container search__bar-container">
         <div>
             <i class="uil uil-search"></i>
-            <input type="search" name="" id="" placeholder="search">
+            <input type="search" name="search" id="" placeholder="search">
         </div>
-        <button type="submit" class="btn">Go</button>
+        <button type="submit" name="submit" class="btn">Go</button>
     </form>
 
 </section>
 <!-- list of Postss -->
-<section class="posts">
-    <div class="container posts__container">
-        <article class="post">
-            <div class="post__thumbnail">
-                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" />
+<?php if (mysqli_num_rows($posts) > 0) : ?>
+    <section class="posts">
+        <div class="container posts__container">
+            <?php while ($post = mysqli_fetch_assoc($posts)) : ?>
+                <article class="post">
+                    <div class="post__thumbnail">
+                        <img src="./images/<?= $post['thumbnail'] ?>" />
 
-            </div>
-            <div class="post__info">
-                <a href="" class="category__button">Wild Life</a>
-                <h3 class="post__title">
-                    <a href="post.php">1914 translation by H. Rackham</a>
-
-                </h3>
-                <p class="post__body">
-                    But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
-                </p>
-                <div class="post__author">
-                    <div class="post__author-avatar">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="img" />
                     </div>
-                    <div class="post__author-info">
-                        <h5>By : jon doe</h5>
-                        <small>11/2/23</small>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="post">
-            <div class="post__thumbnail">
-                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" />
+                    <div class="post__info">
 
-            </div>
-            <div class="post__info">
-                <a href="" class="category__button">Wild Life</a>
-                <h3 class="post__title">
-                    <a href="post.php">1914 translation by H. Rackham</a>
+                        <a href="<?= ROOT_URL ?>category-posts.php?id=<?= $post['category_id'] ?>" class="category__button"><?= $post['category_title'] ?></a>
+                        <h3 class="post__title">
+                            <a href="<?= ROOT_URL ?>post.php?id=<?= $post['id'] ?>"><?= $post['title'] ?></a>
 
-                </h3>
-                <p class="post__body">
-                    But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
-                </p>
-                <div class="post__author">
-                    <div class="post__author-avatar">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="img" />
-                    </div>
-                    <div class="post__author-info">
-                        <h5>By : jon doe</h5>
-                        <small>11/2/23</small>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="post">
-            <div class="post__thumbnail">
-                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" />
+                        </h3>
+                        <p class="post__body">
 
-            </div>
-            <div class="post__info">
-                <a href="" class="category__button">Wild Life</a>
-                <h3 class="post__title">
-                    <a href="post.php">1914 translation by H. Rackham</a>
+                            <?= substr($post['body'], 0, 150) ?>... </p>
+                        <div class="post__author">
 
-                </h3>
-                <p class="post__body">
-                    But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
-                </p>
-                <div class="post__author">
-                    <div class="post__author-avatar">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="img" />
-                    </div>
-                    <div class="post__author-info">
-                        <h5>By : jon doe</h5>
-                        <small>11/2/23</small>
-                    </div>
-                </div>
-            </div>
-        </article>
+                            <div class="post__author-avatar">
+                                <img src="./images/<?= $post['avatar'] ?>" />
+                            </div>
+                            <div class="author__info">
 
+                                <h5>By : <?= "{$post['firstname']} {$post['lastname']}" ?></h5>
+                                <small><?= date("M d, Y - H:i", strtotime($post['date_time'])) ?></small>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            <?php endwhile; ?>
+
+        </div>
+    </section>
+<?php else : ?>
+    <div class="alert__message error" style="display:flex;align-items:center;justify-content:center">
+        <p>No posts found.</p>
     </div>
-</section>
-
-<section class="category__buttons">
-    <div class="container category__buttons-container">
-        <a href="" class="category__button">Art</a>
-        <a href="" class="category__button">History</a>
-        <a href="" class="category__button">Nature</a>
-        <a href="" class="category__button">Tech</a>
-        <a href="" class="category__button">Fashion</a>
-        <a href="" class="category__button">Wild Life</a>
-        <a href="" class="category__button">Lifestyle</a>
-
-    </div>
-</section>
+<?php endif; ?>
+<?php include('./category-section.php'); ?>
 <!-- footer -->
 <script src="js\main.js"></script>
 
