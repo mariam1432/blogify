@@ -110,3 +110,4 @@ $posts = mysqli_query($connection, $posts_query);
 <?php
 include('partials/footer.php');
 ?>
+<!-- https://www.youtube.com/watch?v=I010T-UvmRM&t=29532s -->
